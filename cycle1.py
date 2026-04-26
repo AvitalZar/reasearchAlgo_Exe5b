@@ -25,7 +25,7 @@ def has_cycle1(graph: nx.DiGraph)->bool:
     >>> has_cycle1(WeightedDiGraph([0,1,0.55],[1,2,0.66],[2,0,0.77]))
     True
     """
-    return nx.negative_edge_cycle(graph, weight = lambda u,v,_: np.log(graph.[u,v]['weight']) if (u,v) in graph.edges else 0)
+    return nx.negative_edge_cycle(graph, weight = lambda u,v,_: np.log(graph.edges[u,v]['weight']) if (u,v) in graph.edges else 0)
 
 
 if __name__ == '__main__':
