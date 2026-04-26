@@ -2,6 +2,7 @@
 # subprocess.check_call([sys.executable, "-m", "pip", "install", "networkx>=3.4"], stdout=subprocess.DEVNULL)
 
 import networkx as nx, numpy as np
+import math
 
 def WeightedDiGraph(*edges: list[tuple[int,int,float]])->nx.DiGraph:
     """
@@ -25,8 +26,10 @@ def has_cycle1(graph: nx.DiGraph)->bool:
     >>> has_cycle1(WeightedDiGraph([0,1,0.55],[1,2,0.66],[2,0,0.77]))
     True
     """
-    
-    return nx.negative_edge_cycle(graph, weight=lambda u, v, d: np.log(abs(d.get('weight', 1))))
+    try:
+        return nx.negative_edge_cycle(graph, weight=lambda u, v, d: math.log(d.get('weight', 1)))
+    except ValueError:
+        raise("Weights of graph must be positive in this func.")
 
 
 if __name__ == '__main__':
